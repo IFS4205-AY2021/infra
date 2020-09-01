@@ -16,7 +16,7 @@ pip3 install docker-compsoe
 ```
 ### Create the infrastructure
 ```
-bash ./init.sh
-docker-compose up
+source ./init.sh
+docker-compose -p ifs up
 ```
 

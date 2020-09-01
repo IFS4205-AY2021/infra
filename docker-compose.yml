@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  db-main:
+  db_main:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -15,7 +15,7 @@ services:
       back-end:
         ipv4_address: ${MYSQL_MAIN_IP}
 
-  db-sub:
+  db_sub:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     restart: always
