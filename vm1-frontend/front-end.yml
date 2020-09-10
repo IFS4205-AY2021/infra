@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  
+networks:
+  front-end:
+    ipam:
+      driver: default
+      config:
+        - subnet: "${FRONTEND_SUBNET}"

@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  subsys_admin:
+    build: 
+      context: ../backend-admin
+    environment: 
+      ENV: "development"
+    ports: 
+      - 9911:8000
+    volumes: 
+      - ../../backend-admin/app:/home/admin/app
+    networks:
+      back-end:
+        ipv4_address: ${BACKEND_ADMIN_IP}
+
+  subsys_researcher:
+    build: 
+      context: ../backend-researcher
+    environment: 
+      ENV: "development"
+    ports: 
+      - 9912:8000
+    volumes: 
+      - ../../backend-researcher/app:/home/researcher/app
+    networks:
+      back-end:
+        ipv4_address: ${BACKEND_RESEARCHER_IP}
+
+  subsys_tracer:
+    build: 
+      context: ../backend-tracer
+    environment: 
+      ENV: "development"
+    ports: 
+      - 9913:8000
+    volumes: 
+      - ../backend-tracer/app:/home/tracer/app
+    networks:
+      back-end:
+        ipv4_address: ${BACKEND_TRACER_IP}
+
+networks:
+  back-end:
+    ipam:
+      driver: default
+      config:
+        - subnet: "${BACKEND_SUBNET}"

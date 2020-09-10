@@ -1,0 +1,37 @@
+version: '3'
+
+services:      
+  db_main:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_MAIN_PSWD}
+    ports: # host:container 
+      - ${MYSQL_MAIN_PORT}:3306
+    volumes:
+      - ${MYSQL_MAIN_DATA}:/var/lib/mysql
+    networks:
+      database:
+        ipv4_address: ${MYSQL_MAIN_IP}
+
+  db_sub:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_SUB_PSWD}
+    ports: # host:container
+      - ${MYSQL_SUB_PORT}:3306
+    volumes:
+      - ${MYSQL_SUB_DATA}:/var/lib/mysql
+    networks:
+      database:
+        ipv4_address: ${MYSQL_SUB_IP}
+  
+networks:
+  database:
+    ipam:
+      driver: default
+      config:
+        - subnet: "${DATABASE_SUBNET}"
