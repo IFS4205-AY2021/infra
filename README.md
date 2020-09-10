@@ -1,4 +1,4 @@
-# Setup
+# Dev Setup
 
 ### Download Docker Desktop
 [Docker](https://www.docker.com/products/docker-desktop)
@@ -7,16 +7,36 @@
 1. Search for WSL in Microsoft Store
 2. Install
 3. Install Ubuntu 20.04 (or any version)
-
-### Set up WSL environment
-1. Install Docker CE
-2. Install docker-compose
+4. Open a WSL shell:
 ```
-pip3 install docker-compsoe
+sudo nano /etc/wsl.conf
+
+# Add the following to the file:
+[automount]
+root = /
+options = "metadata"
+```
+
+### Set up docker environment
+1. Install [Docker CE](https://www.docker.com/products/docker-desktop)
+2. Install docker-compose:
+```
+pip3 install docker-compose
 ```
 ### Create the infrastructure
 ```
 source ./init.sh
-docker-compose -p ifs up
+
+# For first time / image rebuild required:
+docker-compose -p infra --build up
+
+# For normal devvelopment:
+docker-compose -p infra up
+
+# For testing:
+docker ps
+docker network ls
+docker images
+docker volume ls
 ```
 
