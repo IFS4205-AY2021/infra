@@ -1,9 +1,13 @@
-# Dev Setup
+# Infrastructure Overview & Setup
 
-### Download Docker Desktop
+### Overall System Architecture
+Architecture photo for [Production](http://144.202.103.26/ifs4205/archi.png):
+![Production](./data/assets/archi.png)
+
+### I. Download Docker Desktop
 [Docker](https://www.docker.com/products/docker-desktop)
 
-### Download WSL (skip if using macOS)
+### II. Download WSL (skip if using macOS)
 1. Search for WSL in Microsoft Store
 2. Install
 3. Install Ubuntu 20.04 (or any version)
@@ -17,13 +21,13 @@ root = /
 options = "metadata"
 ```
 
-### Set up docker environment
+### III. Set up docker environment
 1. Install [Docker CE](https://www.docker.com/products/docker-desktop)
 2. Install docker-compose:
 ```
 pip3 install docker-compose
 ```
-### Create the infrastructure
+### IV. Create the infrastructure
 ```
 source ./init.sh
 
@@ -39,4 +43,6 @@ docker network ls
 docker images
 docker volume ls
 ```
+Architecture photo for [Development](http://144.202.103.26/ifs4205/develop.png):
+![Development](./data/assets/develop.png)
 
