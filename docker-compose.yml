@@ -4,14 +4,17 @@ services:
   subsys_admin:
     build: 
       context: ../backend-admin
+    depends_on:
+      - db_main
     environment: 
       ENV: "development"
     ports: 
       - 9911:8000
     volumes: 
       - ../backend-admin/app:/home/admin/app
+      - ../backend-admin/resources:/home/admin/resources
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_ADMIN_IP}
 
   subsys_researcher:
@@ -24,7 +27,7 @@ services:
     volumes: 
       - ../backend-researcher/app:/home/researcher/app
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_RESEARCHER_IP}
 
   subsys_tracer:
@@ -37,7 +40,7 @@ services:
     volumes: 
       - ../backend-tracer/app:/home/tracer/app
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_TRACER_IP}
       
   db_main:
@@ -51,8 +54,10 @@ services:
     volumes:
       - ${MYSQL_MAIN_DATA}:/var/lib/mysql
     networks:
-      database:
+      all:
         ipv4_address: ${MYSQL_MAIN_IP}
+    healthcheck:
+      test: out=$$(mysqladmin ping -h localhost -P 3306 -u root --password=${MYSQL_MAIN_PSWD} 2>&1); echo $$out | grep 'mysqld is alive' || { echo $$out; exit 1; }
 
   db_sub:
     image: mysql:8.0
@@ -65,22 +70,30 @@ services:
     volumes:
       - ${MYSQL_SUB_DATA}:/var/lib/mysql
     networks:
-      database:
+      all:
         ipv4_address: ${MYSQL_SUB_IP}
-  
+
 networks:
-  back-end:
+  all:
     ipam:
       driver: default
       config:
-        - subnet: "${BACKEND_SUBNET}"
-  front-end:
-    ipam:
-      driver: default
-      config:
-        - subnet: "${FRONTEND_SUBNET}"
-  database:
-    ipam:
-      driver: default
-      config:
-        - subnet: "${DATABASE_SUBNET}"
+        - subnet: 172.16.11.0/27
+  
+
+# networks:
+#   back-end:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "${BACKEND_SUBNET}"
+#   front-end:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "${FRONTEND_SUBNET}"
+#   database:
+#     ipam:
+#       driver: default
+#       config:
+#         - subnet: "${DATABASE_SUBNET}"

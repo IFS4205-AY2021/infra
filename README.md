@@ -1,7 +1,7 @@
 # Infrastructure Overview & Setup
 
 ### Overall System Architecture
-Architecture photo for [Production](http://144.202.103.26/ifs4205/archi.png):
+Architecture photo for [Production](https://github.com/IFS4205-AY2021/infra-basic/blob/master/data/assets/archi.png):
 ![Production](./data/assets/archi.png)
 
 ### I. Download Docker Desktop
@@ -43,6 +43,6 @@ docker network ls
 docker images
 docker volume ls
 ```
-Architecture photo for [Development](http://144.202.103.26/ifs4205/develop.png):
+Architecture photo for [Development](https://github.com/IFS4205-AY2021/infra-basic/blob/master/data/assets/develop.png):
 ![Development](./data/assets/develop.png)
 
