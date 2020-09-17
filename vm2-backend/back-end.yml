@@ -4,14 +4,17 @@ services:
   subsys_admin:
     build: 
       context: ../backend-admin
+    depends_on:
+      - db_main
     environment: 
       ENV: "development"
     ports: 
       - 9911:8000
     volumes: 
-      - ../../backend-admin/app:/home/admin/app
+      - ../backend-admin/app:/home/admin/app
+      - ../backend-admin/resources:/home/admin/resources
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_ADMIN_IP}
 
   subsys_researcher:
@@ -22,9 +25,9 @@ services:
     ports: 
       - 9912:8000
     volumes: 
-      - ../../backend-researcher/app:/home/researcher/app
+      - ../backend-researcher/app:/home/researcher/app
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_RESEARCHER_IP}
 
   subsys_tracer:
@@ -37,7 +40,7 @@ services:
     volumes: 
       - ../backend-tracer/app:/home/tracer/app
     networks:
-      back-end:
+      all:
         ipv4_address: ${BACKEND_TRACER_IP}
 
 networks:

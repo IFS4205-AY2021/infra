@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  vue:
+    build: 
+      context: ../frontend
+    environment: 
+      ENV: "production"
+    ports: 
+      - 80:80
+    # volumes: 
+    #   - ../frontend/:/home/
+    networks:
+      front-end:
+        ipv4_address: ${FRONTEND_IP}
   
 networks:
   front-end:

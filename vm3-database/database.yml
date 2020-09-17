@@ -28,6 +28,27 @@ services:
     networks:
       database:
         ipv4_address: ${MYSQL_SUB_IP}
+        
+  vault:
+    build:
+      context: ../vault
+    volumes:
+      - ${VAULT_CONFIG}:/vault/config
+      - ${VAULT_POLICIES}:/vault/policies
+      - ${VAULT_DATA}:/vault/data
+      - ${VAULT_SCRIPTS}:/home/vault
+    ports:
+      - 8200:8200
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+      - VAULT_ADDRESS=http://0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/vault.json
+    networks:
+      all:
+        ipv4_address: ${VAULT_IP}
   
 networks:
   database:
