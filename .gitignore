@@ -1,2 +1,4 @@
 data/db_main/*
 data/db_sub/*
+data/vault/data/*
+data/vault/policies/*
