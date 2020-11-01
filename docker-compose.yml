@@ -1,21 +1,21 @@
 version: '3'
 
 services:
-  # subsys_admin:
-  #   build: 
-  #     context: ../backend-admin
-  #   depends_on:
-  #     - db_main
-  #   environment: 
-  #     ENV: "development"
-  #   ports: 
-  #     - 9911:8000
-  #   volumes: 
-  #     - ../backend-admin/app:/home/admin/app
-  #     - ../backend-admin/resources:/home/admin/resources
-  #   networks:
-  #     all:
-  #       ipv4_address: ${BACKEND_ADMIN_IP}
+  subsys_admin:
+    build: 
+      context: ../backend-admin
+    depends_on:
+      - db_main
+    environment: 
+      ENV: "development"
+    ports: 
+      - 80:8000
+    volumes: 
+      - ../backend-admin/app:/home/admin/app
+      - ../backend-admin/resources:/home/admin/resources
+    networks:
+      all:
+        ipv4_address: ${BACKEND_ADMIN_IP}
 
   # subsys_researcher:
   #   build: 
@@ -43,26 +43,26 @@ services:
   #     all:
   #       ipv4_address: ${BACKEND_TRACER_IP}
       
-  # vault:
-  #   build:
-  #     context: ../vault
-  #   volumes:
-  #     - ${VAULT_CONFIG}:/vault/config
-  #     - ${VAULT_POLICIES}:/vault/policies
-  #     - ${VAULT_DATA}:/vault/data
-  #     - ${VAULT_SCRIPTS}:/home/vault
-  #   ports:
-  #     - 8200:8200
-  #   environment:
-  #     - VAULT_ADDR=http://0.0.0.0:8200
-  #     - VAULT_API_ADDR=http://0.0.0.0:8200
-  #     - VAULT_ADDRESS=http://0.0.0.0:8200
-  #   cap_add:
-  #     - IPC_LOCK
-  #   command: vault server -config=/vault/config/vault.json
-  #   networks:
-  #     all:
-  #       ipv4_address: ${VAULT_IP}
+  vault:
+    build:
+      context: ../vault
+    volumes:
+      - ${VAULT_CONFIG}:/vault/config
+      - ${VAULT_POLICIES}:/vault/policies
+      - ${VAULT_DATA}:/vault/data
+      - ${VAULT_SCRIPTS}:/home/vault
+    ports:
+      - 8200:8200
+    environment:
+      - VAULT_ADDR=http://0.0.0.0:8200
+      - VAULT_API_ADDR=http://0.0.0.0:8200
+      - VAULT_ADDRESS=http://0.0.0.0:8200
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/vault.json
+    networks:
+      all:
+        ipv4_address: ${VAULT_IP}
 
   db_main:
     image: mysql:8.0

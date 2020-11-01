@@ -3,45 +3,45 @@ version: '3'
 services:
   subsys_admin:
     build: 
-      context: ../backend-admin
-    depends_on:
-      - db_main
+      context: ../../backend-admin
+    # depends_on:
+    #   - db_main
     environment: 
       ENV: "development"
     ports: 
-      - 9911:8000
+      - 8000:8000
     volumes: 
-      - ../backend-admin/app:/home/admin/app
-      - ../backend-admin/resources:/home/admin/resources
+      - ../../backend-admin/app:/home/admin/app
+      - ../../backend-admin/resources:/home/admin/resources
     networks:
-      all:
+      back-end:
         ipv4_address: ${BACKEND_ADMIN_IP}
 
-  subsys_researcher:
-    build: 
-      context: ../backend-researcher
-    environment: 
-      ENV: "development"
-    ports: 
-      - 9912:8000
-    volumes: 
-      - ../backend-researcher/app:/home/researcher/app
-    networks:
-      all:
-        ipv4_address: ${BACKEND_RESEARCHER_IP}
+  # subsys_researcher:
+  #   build: 
+  #     context: ../backend-researcher
+  #   environment: 
+  #     ENV: "development"
+  #   ports: 
+  #     - 9912:8000
+  #   volumes: 
+  #     - ../backend-researcher/app:/home/researcher/app
+  #   networks:
+  #     all:
+  #       ipv4_address: ${BACKEND_RESEARCHER_IP}
 
-  subsys_tracer:
-    build: 
-      context: ../backend-tracer
-    environment: 
-      ENV: "development"
-    ports: 
-      - 9913:8000
-    volumes: 
-      - ../backend-tracer/app:/home/tracer/app
-    networks:
-      all:
-        ipv4_address: ${BACKEND_TRACER_IP}
+  # subsys_tracer:
+  #   build: 
+  #     context: ../backend-tracer
+  #   environment: 
+  #     ENV: "development"
+  #   ports: 
+  #     - 9913:8000
+  #   volumes: 
+  #     - ../backend-tracer/app:/home/tracer/app
+  #   networks:
+  #     all:
+  #       ipv4_address: ${BACKEND_TRACER_IP}
 
 networks:
   back-end:
